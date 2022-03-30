@@ -62,12 +62,6 @@ export const SingUp = styled.main`
 		pointer-events: none;
 	}
 
-	.notifyError {
-		position: absolute !important;
-		bottom: 10px !important;
-		left: 35% !important;
-	}
-
 	p {
 		font-family: "Lexend Deca";
 		font-weight: 400;

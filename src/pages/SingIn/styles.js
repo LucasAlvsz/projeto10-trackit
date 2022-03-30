@@ -15,6 +15,13 @@ export const SingIn = styled.main`
 		margin-bottom: 32px;
 	}
 
+	form {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
 	input {
 		width: 303px;
 		height: 45px;
@@ -22,16 +29,18 @@ export const SingIn = styled.main`
 		border: 1px solid #d5d5d5;
 		border-radius: 5px;
 		margin-bottom: 6px;
+		font-weight: 400;
+		font-size: 20px;
+		line-height: 25px;
+		padding-left: 11px;
+		color: darkGray;
 
 		&::placeholder {
-			width: auto;
-			height: 25px;
-			font-weight: 400;
-			font-size: 20px;
-			line-height: 25px;
 			color: #dbdbdb;
-			padding-left: 11px;
-			padding-top: 9px;
+		}
+
+		&.disabled {
+			background: #f2f2f2;
 		}
 	}
 
@@ -48,6 +57,11 @@ export const SingIn = styled.main`
 		color: #ffffff;
 	}
 
+	.disabled {
+		opacity: 0.7;
+		pointer-events: none;
+	}
+
 	p {
 		font-family: "Lexend Deca";
 		font-weight: 400;
@@ -57,5 +71,9 @@ export const SingIn = styled.main`
 		text-decoration-line: underline;
 		color: #52b6ff;
 		margin-top: 25px;
+	}
+	object {
+		width: 200px;
+		height: 45px;
 	}
 `
