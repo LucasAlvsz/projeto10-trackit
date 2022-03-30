@@ -9,6 +9,8 @@ import loading from "../../assets/imgs/loading.svg"
 import "react-notifications/lib/notifications.css"
 
 export default function SingUp() {
+	const URL =
+		"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up"
 	const navigate = useNavigate()
 	const [isLoading, setIsLoading] = useState({
 		data: "Cadastrar",
@@ -25,10 +27,7 @@ export default function SingUp() {
 		e.preventDefault()
 		setIsLoading({ ...isLoading, data: loading, className: "disabled" })
 		axios
-			.post(
-				"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",
-				userData
-			)
+			.post(URL, userData)
 			.then((response) => {
 				console.log(response)
 				navigate("/")
