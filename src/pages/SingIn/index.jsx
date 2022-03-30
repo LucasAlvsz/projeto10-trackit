@@ -27,7 +27,7 @@ export default function SingIn() {
 			.post(URL, userData)
 			.then((response) => {
 				console.log(response)
-				navigate("/")
+				navigate("/today")
 			})
 			.catch(({ response }) => {
 				console.log(response)
