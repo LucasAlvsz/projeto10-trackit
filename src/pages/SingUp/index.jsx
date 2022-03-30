@@ -35,10 +35,11 @@ export default function SingUp() {
 			})
 			.catch(({ response }) => {
 				console.log(response)
+				setIsLoading({ ...isLoading, data: "Cadastrar", className: "" })
 				NotificationManager.error(
 					response.data.details,
 					response.data.message,
-					7000
+					10000
 				)
 			})
 	}
