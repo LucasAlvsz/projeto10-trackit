@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 import * as S from "./styles"
 import logo from "../../assets/logo.svg"
@@ -6,13 +6,15 @@ import logo from "../../assets/logo.svg"
 export default function SingIn() {
 	return (
 		<>
-			<S.Login>
+			<S.SingIn>
 				<img src={logo} alt="logo" />
 				<input type="text" placeholder="email" />
 				<input type="text" placeholder="senha" />
 				<button>Entrar</button>
-				<p>Não tem uma conta? Cadastre-se!</p>
-			</S.Login>
+				<Link to="/singup">
+					<p>Não tem uma conta? Cadastre-se!</p>
+				</Link>
+			</S.SingIn>
 		</>
 	)
 }
