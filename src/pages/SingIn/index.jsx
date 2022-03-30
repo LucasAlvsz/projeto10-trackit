@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 
 import * as S from "./styles"
-import logo from "../../assets/logo.svg"
+import logo from "../../assets/imgs/logo.svg"
 
 export default function SingIn() {
 	return (

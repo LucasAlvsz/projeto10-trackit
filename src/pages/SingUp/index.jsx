@@ -1,11 +1,19 @@
-import { Link } from "react-router-dom"
+import axios from "axios"
 import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { NotificationContainer, NotificationManager } from "react-notifications"
 
 import * as S from "./styles"
-import logo from "../../assets/logo.svg"
-import axios from "axios"
+import logo from "../../assets/imgs/logo.svg"
+import loading from "../../assets/imgs/loading.svg"
+import "react-notifications/lib/notifications.css"
 
 export default function SingUp() {
+	const navigate = useNavigate()
+	const [isLoading, setIsLoading] = useState({
+		data: "Cadastrar",
+		className: "",
+	})
 	const [userData, setUserData] = useState({
 		email: "",
 		password: "",
@@ -15,6 +23,7 @@ export default function SingUp() {
 
 	function singUp(e) {
 		e.preventDefault()
+		setIsLoading({ ...isLoading, data: loading, className: "disabled" })
 		axios
 			.post(
 				"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",
@@ -22,9 +31,15 @@ export default function SingUp() {
 			)
 			.then((response) => {
 				console.log(response)
+				navigate("/")
 			})
-			.catch((error) => {
-				console.log(error)
+			.catch(({ response }) => {
+				console.log(response)
+				NotificationManager.error(
+					response.data.details,
+					response.data.message,
+					7000
+				)
 			})
 	}
 
@@ -33,39 +48,50 @@ export default function SingUp() {
 			<img src={logo} alt="logo" />
 			<form onSubmit={singUp}>
 				<input
+					required
 					type="email"
 					placeholder="email"
-					required
+					className={isLoading.className}
 					onChange={(e) =>
 						setUserData({ ...userData, email: e.target.value })
 					}
 				/>
 				<input
+					required
 					type="password"
 					placeholder="senha"
-					required
+					className={isLoading.className}
 					onChange={(e) =>
 						setUserData({ ...userData, password: e.target.value })
 					}
 				/>
 				<input
+					required
 					type="text"
 					placeholder="nome"
-					required
+					className={isLoading.className}
 					onChange={(e) =>
 						setUserData({ ...userData, name: e.target.value })
 					}
 				/>
 				<input
+					required
 					type="text"
 					placeholder="foto"
-					required
+					className={isLoading.className}
 					onChange={(e) =>
 						setUserData({ ...userData, image: e.target.value })
 					}
 				/>
-				<button type="submit">Cadastrar</button>
+				<button type="submit" className={isLoading.className}>
+					{isLoading.data === "Cadastrar" ? (
+						isLoading.data
+					) : (
+						<object data={isLoading.data}></object>
+					)}
+				</button>
 			</form>
+			<NotificationContainer />
 			<Link to="/">
 				<p>Já tem uma conta? Faça login!</p>
 			</Link>

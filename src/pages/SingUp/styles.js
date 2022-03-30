@@ -38,6 +38,10 @@ export const SingUp = styled.main`
 		&::placeholder {
 			color: #dbdbdb;
 		}
+
+		&.disabled {
+			background: #f2f2f2;
+		}
 	}
 
 	button {
@@ -53,6 +57,17 @@ export const SingUp = styled.main`
 		color: #ffffff;
 	}
 
+	.disabled {
+		opacity: 0.7;
+		pointer-events: none;
+	}
+
+	.notifyError {
+		position: absolute !important;
+		bottom: 10px !important;
+		left: 35% !important;
+	}
+
 	p {
 		font-family: "Lexend Deca";
 		font-weight: 400;
@@ -62,5 +77,9 @@ export const SingUp = styled.main`
 		text-decoration-line: underline;
 		color: #52b6ff;
 		margin-top: 25px;
+	}
+	object {
+		width: 200px;
+		height: 45px;
 	}
 `
