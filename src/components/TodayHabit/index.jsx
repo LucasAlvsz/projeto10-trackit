@@ -1,6 +1,6 @@
 import * as S from "./styles"
-import { ReactComponent as HabitButton } from "../../assets/imgs/Vector.svg"
-export default function Habit() {
+import { ReactComponent as HabitCheckButton } from "../../assets/imgs/check.svg"
+export default function TodayHabit() {
 	return (
 		<S.Habit>
 			<div className="Infos">
@@ -11,7 +11,7 @@ export default function Habit() {
 				</div>
 			</div>
 			<button>
-				<HabitButton />
+				<HabitCheckButton />
 			</button>
 		</S.Habit>
 	)
