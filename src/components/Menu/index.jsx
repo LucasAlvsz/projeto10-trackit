@@ -14,7 +14,9 @@ export default function Menu() {
 				<S.Option>Hoje</S.Option>
 				<CircularProgressbar value={66} />
 			</S.Progress>
-			<S.Option>Histórico</S.Option>
+			<Link to="/history">
+				<S.Option>Histórico</S.Option>
+			</Link>
 		</S.Menu>
 	)
 }

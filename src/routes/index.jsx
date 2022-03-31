@@ -4,6 +4,7 @@ import SingIn from "../pages/SingIn"
 import SingUp from "../pages/SingUp"
 import Today from "../pages/Today"
 import Habits from "../pages/Habits"
+import History from "../pages/History"
 
 export default function Router() {
 	return (
@@ -13,6 +14,7 @@ export default function Router() {
 				<Route path="/singup" element={<SingUp />} />
 				<Route path="/today" element={<Today />} />
 				<Route path="/habits" element={<Habits />} />
+				<Route path="/history" element={<History />} />
 			</Routes>
 		</BrowserRouter>
 	)
