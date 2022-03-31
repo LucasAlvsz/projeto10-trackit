@@ -10,10 +10,12 @@ export default function Menu() {
 			<Link to="/habits">
 				<S.Option>Hábitos</S.Option>
 			</Link>
-			<S.Progress>
-				<S.Option>Hoje</S.Option>
-				<CircularProgressbar value={66} />
-			</S.Progress>
+			<Link to="/today">
+				<S.Progress>
+					<S.Option>Hoje</S.Option>
+					<CircularProgressbar value={66} />
+				</S.Progress>
+			</Link>
 			<Link to="/history">
 				<S.Option>Histórico</S.Option>
 			</Link>
