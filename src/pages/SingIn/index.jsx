@@ -12,6 +12,7 @@ export default function SingIn() {
 	const URL =
 		"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
 	const navigate = useNavigate()
+	const [teste, setTeste] = useState("darkGray")
 	const [isLoading, setIsLoading] = useState({
 		data: "Entrar",
 		className: "",
@@ -23,6 +24,7 @@ export default function SingIn() {
 	function singIn(e) {
 		e.preventDefault()
 		setIsLoading({ ...isLoading, data: loading, className: "disabled" })
+		setTeste("red")
 		axios
 			.post(URL, userData)
 			.then((response) => {
@@ -36,7 +38,7 @@ export default function SingIn() {
 			})
 	}
 	return (
-		<S.SingIn>
+		<S.SingIn color={teste}>
 			<img src={logo} alt="logo" />
 			<form onSubmit={singIn}>
 				<input

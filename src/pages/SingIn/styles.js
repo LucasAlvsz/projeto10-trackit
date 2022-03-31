@@ -42,6 +42,10 @@ export const SingIn = styled.main`
 		&.disabled {
 			background: #f2f2f2;
 		}
+
+		&:nth-child(1) {
+			color: ${(props) => props.color};
+		}
 	}
 
 	button {
