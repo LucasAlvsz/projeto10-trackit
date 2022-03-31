@@ -19,6 +19,7 @@ export const Option = styled.p`
 	font-size: 17.976px;
 	line-height: 22px;
 	color: #52b6ff;
+	cursor: pointer;
 `
 export const Progress = styled.div`
 	width: 91px;
