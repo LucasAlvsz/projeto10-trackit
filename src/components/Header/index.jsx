@@ -1,15 +1,19 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 
 import * as S from "./styles"
 import logoHeader from "../../assets/imgs/logo-header.svg"
 import profilePicTest from "../../assets/imgs/profilePicTest.png"
 
+import LoggedContext from "../../providers/LoggedContext"
+
 export default function Header() {
-	const [profilePic, setProfilePic] = useState(profilePicTest)
+	const {
+		loggedData: { image },
+	} = useContext(LoggedContext)
 	return (
 		<S.Header>
 			<img src={logoHeader} alt="logoHeader" />
-			<S.ProfilePic src={profilePic} />
+			<S.ProfilePic src={image} />
 		</S.Header>
 	)
 }

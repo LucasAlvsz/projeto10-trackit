@@ -1,25 +1,28 @@
 import axios from "axios"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { NotificationContainer, NotificationManager } from "react-notifications"
 
 import * as S from "./styles"
+import "react-notifications/lib/notifications.css"
 import logo from "../../assets/imgs/logo.svg"
 import loading from "../../assets/imgs/loading.svg"
-import "react-notifications/lib/notifications.css"
+
+import LoggedContext from "../../providers/LoggedContext"
 
 export default function SingIn() {
 	const URL =
 		"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
 	const navigate = useNavigate()
+	const loggedDataUpdate = useContext(LoggedContext)
 	const [teste, setTeste] = useState("darkGray")
 	const [isLoading, setIsLoading] = useState({
 		data: "Entrar",
 		className: "",
 	})
 	const [userData, setUserData] = useState({
-		email: "",
-		password: "",
+		email: "Akali@gmail.com",
+		password: "Akali",
 	})
 	function singIn(e) {
 		e.preventDefault()
@@ -27,8 +30,9 @@ export default function SingIn() {
 		setTeste("red")
 		axios
 			.post(URL, userData)
-			.then((response) => {
-				console.log(response)
+			.then(({ data }) => {
+				loggedDataUpdate.setLoggedData(data)
+				console.log(data)
 				navigate("/today")
 			})
 			.catch(({ response }) => {
@@ -42,6 +46,7 @@ export default function SingIn() {
 			<img src={logo} alt="logo" />
 			<form onSubmit={singIn}>
 				<input
+					value={userData.email}
 					required
 					type="email"
 					placeholder="email"
@@ -51,6 +56,7 @@ export default function SingIn() {
 					}
 				/>
 				<input
+					value={userData.password}
 					required
 					type="password"
 					placeholder="senha"
