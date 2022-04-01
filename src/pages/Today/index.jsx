@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState, useEffect, useContext } from "react"
+import dayjs from "dayjs"
 
 import Header from "../../components/Header"
 import Menu from "../../components/Menu"
@@ -9,6 +10,11 @@ import LoggedContext from "../../providers/LoggedContext"
 import * as S from "./styles"
 
 export default function Today() {
+	require("dayjs/locale/pt-br")
+	dayjs.locale("pt-br")
+	let todayDate = dayjs().format("dddd, DD/MM").replace("-feira", "")
+	todayDate = todayDate[0].toUpperCase() + todayDate.slice(1)
+	// console.log(todayDate)
 	const {
 		loggedData: { token },
 	} = useContext(LoggedContext)
@@ -37,7 +43,7 @@ export default function Today() {
 		<>
 			<Header />
 			<S.Today>
-				<h1>Segunda, 17/05</h1>
+				<h1>{todayDate}</h1>
 				<h3>Nenhum hábito concluído ainda</h3>
 				<div className="habitsContainer">
 					<TodayHabit />
