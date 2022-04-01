@@ -14,7 +14,6 @@ export default function Today() {
 	dayjs.locale("pt-br")
 	let todayDate = dayjs().format("dddd, DD/MM").replace("-feira", "")
 	todayDate = todayDate[0].toUpperCase() + todayDate.slice(1)
-	// console.log(todayDate)
 	const {
 		loggedData: { token },
 	} = useContext(LoggedContext)
@@ -31,7 +30,7 @@ export default function Today() {
 				}
 			)
 			.then(({ data }) => {
-				console.log(data)
+				// console.log(data)
 				setTodayHabits(data)
 			})
 			.catch(({ response }) => {

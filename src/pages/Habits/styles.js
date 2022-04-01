@@ -72,6 +72,11 @@ export const CreateHabitForm = styled.div`
 			border-radius: 5px;
 			text-align: center;
 			margin-right: 4px;
+			cursor: pointer;
+		}
+		.selected {
+			color: #fff;
+			background: #cfcfcf;
 		}
 	}
 	.buttons {
