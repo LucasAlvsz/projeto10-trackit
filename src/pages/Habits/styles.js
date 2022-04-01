@@ -38,15 +38,17 @@ export const Habits = styled.main`
 	}
 `
 
-export const CreateHabitForm = styled.div`
+export const CreateHabitForm = styled.form`
 	width: 100%;
 	height: 180px;
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	background: #ffffff;
 	border-radius: 5px;
 	padding: 18px;
 	margin-top: 20px;
+	pointer-events: ${props => (props.isLoading ? "none" : "auto")};
 	input {
 		width: 100%;
 		height: 45px;
@@ -58,6 +60,14 @@ export const CreateHabitForm = styled.div`
 		&::placeholder {
 			color: #dbdbdb;
 		}
+	}
+	input[type="checkbox"] {
+		width: 200px;
+		height: 33px;
+		position: absolute;
+		z-index: -1;
+		opacity: 0;
+		cursor: none;
 	}
 	.daysWeek {
 		display: flex;

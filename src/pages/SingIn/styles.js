@@ -44,7 +44,7 @@ export const SingIn = styled.main`
 		}
 
 		&:nth-child(1) {
-			color: ${(props) => props.color};
+			color: ${props => props.color};
 		}
 	}
 
@@ -75,9 +75,5 @@ export const SingIn = styled.main`
 		text-decoration-line: underline;
 		color: #52b6ff;
 		margin-top: 25px;
-	}
-	object {
-		width: 200px;
-		height: 45px;
 	}
 `

@@ -51,7 +51,7 @@ export default function SingIn() {
 					type="email"
 					placeholder="email"
 					className={isLoading.className}
-					onChange={(e) =>
+					onChange={e =>
 						setUserData({ ...userData, email: e.target.value })
 					}
 				/>
@@ -61,7 +61,7 @@ export default function SingIn() {
 					type="password"
 					placeholder="senha"
 					className={isLoading.className}
-					onChange={(e) =>
+					onChange={e =>
 						setUserData({ ...userData, password: e.target.value })
 					}
 				/>
