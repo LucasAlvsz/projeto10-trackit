@@ -30,13 +30,72 @@ export default function Today() {
 				}
 			)
 			.then(({ data }) => {
-				// console.log(data)
+				console.log(data)
 				setTodayHabits(data)
 			})
 			.catch(({ response }) => {
 				console.log(response)
 			})
 	}, [])
+
+	function checkHabit(id, done) {
+		if (!done) {
+			axios
+				.post(
+					`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`,
+					"",
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				)
+				.then(() => {
+					let updateHabits = todayHabits.map(habit => {
+						if (habit.id === id) {
+							habit.done = !habit.done
+							habit.currentSequence++
+							if (habit.currentSequence > habit.highestSequence)
+								habit.highestSequence = habit.currentSequence
+						}
+						return habit
+					})
+					setTodayHabits(updateHabits)
+					console.log("Habit checked")
+				})
+				.catch(({ response }) => {
+					console.log(response, "erro")
+				})
+		} else {
+			axios
+				.post(
+					`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`,
+					"",
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				)
+				.then(() => {
+					let updateHabits = todayHabits.map(habit => {
+						if (habit.id === id) {
+							habit.done = !habit.done
+							habit.currentSequence--
+							habit.highestSequence--
+							if (habit.currentSequence < 0)
+								habit.currentSequence = 0
+						}
+						return habit
+					})
+					setTodayHabits(updateHabits)
+					console.log("Habit unchecked")
+				})
+				.catch(({ response }) => {
+					console.log(response, "erro")
+				})
+		}
+	}
 
 	return (
 		<>
@@ -45,11 +104,17 @@ export default function Today() {
 				<h1>{todayDate}</h1>
 				<h3>Nenhum hábito concluído ainda</h3>
 				<div className="habitsContainer">
-					<TodayHabit />
-					<TodayHabit />
-					{todayHabits.map((habit) => (
-						<TodayHabit />
-					))}
+					{
+						todayHabits
+							? todayHabits.map(habit => (
+									<TodayHabit
+										key={habit.id}
+										habitData={habit}
+										checkHabit={checkHabit}
+									/>
+							  ))
+							: "" //adcione um loading
+					}
 				</div>
 			</S.Today>
 			<Menu />

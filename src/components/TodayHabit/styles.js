@@ -15,7 +15,7 @@ export const Habit = styled.div`
 	button {
 		width: 69px !important;
 		height: 69px;
-		background: #8fc549;
+		background: ${props => (props.done ? "#8fc549" : "#E7E7E7")};
 		border: 1px solid #e7e7e7;
 		display: flex;
 		justify-content: center;
@@ -36,6 +36,14 @@ export const Habit = styled.div`
 			font-size: 12.976px;
 			line-height: 16px;
 			margin-top: 7px;
+
+			.child1 {
+				color: ${props => (props.done ? "#8fc549" : "#666666")};
+			}
+
+			.child2 {
+				color: ${props => (props.newRecord ? "#8fc549" : "#666666")};
+			}
 		}
 	}
 `
