@@ -9,6 +9,7 @@ export const MyHabit = styled.div`
 	background: #ffffff;
 	border-radius: 5px;
 	padding: 13px 15px;
+	margin-bottom: 10px;
 	h1 {
 		font-size: 19.976px;
 		line-height: 25px;
@@ -27,6 +28,10 @@ export const MyHabit = styled.div`
 			border-radius: 5px;
 			text-align: center;
 			margin-right: 4px;
+		}
+		.selected {
+			color: #fff;
+			background: #cfcfcf;
 		}
 	}
 	button {

@@ -62,8 +62,35 @@ export default function Habits() {
 				)
 				.then(({ data }) => {
 					console.log(data)
-					setCreateHabitData({ ...createHabitData, status: false })
+					setCreateHabitData({
+						status: false,
+						name: "",
+						days: [],
+					})
 					setHabits([...habits, data])
+					setIsLoading(false)
+				})
+				.catch(({ response }) => {
+					console.log(response)
+					setIsLoading(false)
+				})
+		}
+	}
+	function deleteHabit(id) {
+		console.log(id)
+		if (window.confirm("Deseja realmente excluir?")) {
+			axios
+				.delete(
+					`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				)
+				.then(({ data }) => {
+					console.log(data)
+					setHabits(habits.filter(habit => habit.id !== id))
 					setIsLoading(false)
 				})
 				.catch(({ response }) => {
@@ -97,24 +124,21 @@ export default function Habits() {
 							required
 							type="text"
 							placeholder="Nome do hábito"
-							onChange={e =>
+							value={createHabitData.name}
+							onChange={e => {
 								setCreateHabitData({
 									...createHabitData,
 									name: e.target.value,
 								})
-							}
+							}}
 						/>
 						<div className="daysWeek">
 							{console.log(createHabitData.days)}
 							<input
-								// required
-								type="checkbox"
-								// onInvalid={e =>
-								// 	e.target.setCustomValidity(
-								// 		"Selecione pelo menos um dia da semana"
-								// 	)
-								// }
-								// onInput={e => e.target.setCustomValidity("")}
+								required
+								name="validation"
+								type="text"
+								value={createHabitData.days ? "value" : ""}
 							/>
 							{days.map((day, id) => (
 								<div
@@ -162,7 +186,13 @@ export default function Habits() {
 				)}
 
 				{habits.length > 0 ? (
-					habits.map(habit => <MyHabit habitData={habit} />)
+					habits.map(habit => (
+						<MyHabit
+							habitData={habit}
+							deleteHabit={deleteHabit}
+							key={habit.id}
+						/>
+					))
 				) : (
 					<h3>
 						Você não tem nenhum hábito cadastrado ainda. Adicione um

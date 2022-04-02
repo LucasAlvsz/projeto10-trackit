@@ -5,16 +5,17 @@ export const Habits = styled.main`
 	height: calc(100vh - 140px);
 	display: flex;
 	flex-direction: column;
+	overflow: auto;
 	background-color: #e5e5e5;
 	margin-top: 70px;
 	padding: 28px 18px;
-
 	font-family: "Lexend Deca";
 	font-style: normal;
 	font-weight: 400;
 	.createHabit {
 		display: flex;
 		justify-content: space-between;
+		margin-bottom: 20px;
 		h1 {
 			font-size: 22.976px;
 			line-height: 29px;
@@ -34,7 +35,7 @@ export const Habits = styled.main`
 		font-size: 17.976px;
 		line-height: 22px;
 		color: #666666;
-		margin-top: 28px;
+		margin-top: 8px;
 	}
 `
 
@@ -47,7 +48,7 @@ export const CreateHabitForm = styled.form`
 	background: #ffffff;
 	border-radius: 5px;
 	padding: 18px;
-	margin-top: 20px;
+	margin-bottom: 29px;
 	pointer-events: ${props => (props.isLoading ? "none" : "auto")};
 	input {
 		width: 100%;
@@ -61,7 +62,7 @@ export const CreateHabitForm = styled.form`
 			color: #dbdbdb;
 		}
 	}
-	input[type="checkbox"] {
+	input[name="validation"] {
 		width: 200px;
 		height: 33px;
 		position: absolute;

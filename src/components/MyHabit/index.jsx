@@ -1,21 +1,36 @@
 import { ReactComponent as DeleteHabitButton } from "../../assets/imgs/delete.svg"
 import * as S from "./styles"
 
-export default function MyHabit({ habitData: { name, days } }) {
+export default function MyHabit({
+	habitData: { name, days, id },
+	deleteHabit,
+}) {
+	const daysList = [
+		{ dayName: "D", dayIndex: 0 },
+		{ dayName: "S", dayIndex: 1 },
+		{ dayName: "T", dayIndex: 2 },
+		{ dayName: "Q", dayIndex: 3 },
+		{ dayName: "Q", dayIndex: 4 },
+		{ dayName: "S", dayIndex: 5 },
+		{ dayName: "S", dayIndex: 6 },
+	]
 	return (
 		<S.MyHabit>
 			<h1>{name}</h1>
 			<div className="daysWeek">
-				{days.map((day, index) =><div className="day">D</div>)
-				
-				<div className="day">S</div>
-				<div className="day">T</div>
-				<div className="day">Q</div>
-				<div className="day">Q</div>
-				<div className="day">S</div>
-				<div className="day">S</div>
+				{daysList.map(({ dayName, dayIndex }, index) => {
+					return (
+						<div
+							key={index}
+							className={`day ${
+								days.includes(dayIndex) ? "selected" : ""
+							}`}>
+							{dayName}
+						</div>
+					)
+				})}
 			</div>
-			<button>
+			<button onClick={() => deleteHabit(id)}>
 				<DeleteHabitButton />
 			</button>
 		</S.MyHabit>
