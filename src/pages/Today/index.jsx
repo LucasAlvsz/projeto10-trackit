@@ -5,7 +5,9 @@ import dayjs from "dayjs"
 import Header from "../../components/Header"
 import Menu from "../../components/Menu"
 import TodayHabit from "../../components/TodayHabit"
+
 import LoggedContext from "../../providers/LoggedContext"
+import CheckedHabitsValue from "../../providers/CheckedHabitsValue"
 
 import * as S from "./styles"
 
@@ -17,7 +19,9 @@ export default function Today() {
 	const {
 		loggedData: { token },
 	} = useContext(LoggedContext)
+	const checkedHabitsValueUpdate = useContext(CheckedHabitsValue)
 	const [todayHabits, setTodayHabits] = useState([])
+	const [checkHabits, setCheckHabits] = useState(0)
 
 	useEffect(() => {
 		axios
@@ -32,6 +36,9 @@ export default function Today() {
 			.then(({ data }) => {
 				console.log(data)
 				setTodayHabits(data)
+				data.map(habit => {
+					if (habit.done) setCheckHabits(checkHabits + 1)
+				})
 			})
 			.catch(({ response }) => {
 				console.log(response)
@@ -61,6 +68,7 @@ export default function Today() {
 						return habit
 					})
 					setTodayHabits(updateHabits)
+					setCheckHabits(checkHabits + 1)
 					console.log("Habit checked")
 				})
 				.catch(({ response }) => {
@@ -89,6 +97,7 @@ export default function Today() {
 						return habit
 					})
 					setTodayHabits(updateHabits)
+					setCheckHabits(checkHabits - 1)
 					console.log("Habit unchecked")
 				})
 				.catch(({ response }) => {
@@ -97,12 +106,24 @@ export default function Today() {
 		}
 	}
 
+	checkedHabitsValueUpdate.setCheckedHabitsValue(
+		(checkHabits / todayHabits.length) * 100
+	)
+
 	return (
 		<>
 			<Header />
 			<S.Today>
 				<h1>{todayDate}</h1>
-				<h3>Nenhum hábito concluído ainda</h3>
+				{checkHabits > 0 ? (
+					<h3>
+						{(checkHabits / todayHabits.length) * 100}% dos hábitos
+						concluídos
+					</h3>
+				) : (
+					<h3>Nenhum hábito concluído ainda</h3>
+				)}
+
 				<div className="habitsContainer">
 					{
 						todayHabits

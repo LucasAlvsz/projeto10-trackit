@@ -1,8 +1,7 @@
-import { useState, useContext } from "react"
+import { useContext } from "react"
 
 import * as S from "./styles"
 import logoHeader from "../../assets/imgs/logo-header.svg"
-import profilePicTest from "../../assets/imgs/profilePicTest.png"
 
 import LoggedContext from "../../providers/LoggedContext"
 
