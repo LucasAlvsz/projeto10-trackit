@@ -3,10 +3,12 @@ import { ReactComponent as HabitCheckButton } from "../../assets/imgs/check.svg"
 export default function TodayHabit({
 	habitData: { id, name, done, currentSequence, highestSequence },
 	checkHabit,
+	isLoading,
 }) {
 	return (
 		<S.Habit
 			done={done}
+			isLoading={isLoading}
 			newRecord={
 				currentSequence >= highestSequence && currentSequence > 0
 					? true

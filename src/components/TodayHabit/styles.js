@@ -13,7 +13,7 @@ export const Habit = styled.div`
 	color: #666666;
 	margin-bottom: 10px;
 	button {
-		width: 69px !important;
+		width: 69px;
 		height: 69px;
 		background: ${props => (props.done ? "#8fc549" : "#E7E7E7")};
 		border: 1px solid #e7e7e7;
@@ -21,6 +21,8 @@ export const Habit = styled.div`
 		justify-content: center;
 		align-items: center;
 		border-radius: 5px;
+		pointer-events: ${props => (props.isLoading ? "none" : "auto")};
+		cursor: ${props => (props.isLoading ? "default" : "pointer")};
 	}
 	.Infos {
 		width: auto;

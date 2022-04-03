@@ -10,16 +10,21 @@ import "react-notifications/lib/notifications.css"
 import logo from "../../assets/imgs/logo.svg"
 import ThreeDotsLoading from "../../components/Loading"
 
-export default function SingIn() {
-	const URL =
-		"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
-	const navigate = useNavigate()
+export default function SingIn({ userLogged }) {
 	const loggedDataUpdate = useContext(LoggedContext)
+	const navigate = useNavigate()
 	const [isLoading, setIsLoading] = useState(false)
 	const [userData, setUserData] = useState({
 		email: "Akali@gmail.com",
 		password: "Akali",
 	})
+	if (localStorage.getItem("@trackit/userData")) {
+		userLogged(true)
+		navigate("/today")
+	}
+	const URL =
+		"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
+
 	function singIn(e) {
 		e.preventDefault()
 		setIsLoading(true)
@@ -28,6 +33,8 @@ export default function SingIn() {
 			.then(({ data }) => {
 				setIsLoading(false)
 				loggedDataUpdate.setLoggedData(data)
+				localStorage.setItem("@trackit/userData", JSON.stringify(data))
+				console.log("logado e setado")
 				navigate("/today")
 			})
 			.catch(({ response }) => {
@@ -56,7 +63,10 @@ export default function SingIn() {
 					placeholder="senha"
 					className={isLoading ? "disabled" : ""}
 					onChange={e =>
-						setUserData({ ...userData, password: e.target.value })
+						setUserData({
+							...userData,
+							password: e.target.value,
+						})
 					}
 				/>
 

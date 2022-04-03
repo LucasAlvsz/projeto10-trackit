@@ -22,7 +22,6 @@ export default function Today() {
 	const [todayHabits, setTodayHabits] = useState([])
 	const [checkHabits, setCheckHabits] = useState(0)
 	const [isLoading, setIsLoading] = useState(true)
-	console.log(checkedHabitsValueUpdate, "today")
 
 	checkHabits > 0
 		? checkedHabitsValueUpdate.setCheckedHabitsValue(
@@ -31,6 +30,7 @@ export default function Today() {
 		: checkedHabitsValueUpdate.setCheckedHabitsValue(0)
 
 	useEffect(() => {
+		console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 		axios
 			.get(
 				"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
@@ -54,6 +54,7 @@ export default function Today() {
 	}, [])
 
 	function checkHabit(id, done) {
+		setIsLoading(true)
 		if (!done) {
 			axios
 				.post(
@@ -78,9 +79,11 @@ export default function Today() {
 					setTodayHabits(updateHabits)
 					setCheckHabits(checkHabits + 1)
 					console.log("Habit checked")
+					setIsLoading(false)
 				})
 				.catch(({ response }) => {
 					console.log(response, "erro")
+					setIsLoading(false)
 				})
 		} else {
 			axios
@@ -107,9 +110,11 @@ export default function Today() {
 					setTodayHabits(updateHabits)
 					setCheckHabits(checkHabits - 1)
 					console.log("Habit unchecked")
+					setIsLoading(false)
 				})
 				.catch(({ response }) => {
 					console.log(response, "erro")
+					setIsLoading(false)
 				})
 		}
 	}
@@ -124,24 +129,21 @@ export default function Today() {
 						{(checkHabits / todayHabits.length) * 100}% dos hábitos
 						concluídos
 					</h3>
-				) : isLoading ? (
-					""
 				) : (
 					<h3>Nenhum hábito concluído ainda</h3>
 				)}
 
 				<div className="habitsContainer">
-					{
-						todayHabits && !isLoading
-							? todayHabits.map(habit => (
-									<TodayHabit
-										key={habit.id}
-										habitData={habit}
-										checkHabit={checkHabit}
-									/>
-							  ))
-							: "" //adcione um loading
-					}
+					{todayHabits
+						? todayHabits.map(habit => (
+								<TodayHabit
+									key={habit.id}
+									habitData={habit}
+									checkHabit={checkHabit}
+									isLoading={isLoading}
+								/>
+						  ))
+						: ""}
 				</div>
 			</S.Today>
 			<Menu isLoading={isLoading} />
