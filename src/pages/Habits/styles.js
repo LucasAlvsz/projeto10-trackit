@@ -27,7 +27,8 @@ export const Habits = styled.main`
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			background: #52b6ff;
+			background: ${props => (props.isLoading ? "#b5b1b1" : "#52b6ff")};
+			pointer-events: ${props => (props.isLoading ? "none" : "auto")};
 			border-radius: 5px;
 		}
 	}
@@ -45,7 +46,7 @@ export const CreateHabitForm = styled.form`
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	background: #ffffff;
+	background: #fff;
 	border-radius: 5px;
 	padding: 18px;
 	margin-bottom: 29px;
@@ -60,6 +61,9 @@ export const CreateHabitForm = styled.form`
 		padding-left: 11px;
 		&::placeholder {
 			color: #dbdbdb;
+		}
+		&:nth-child(1) {
+			background: ${props => (props.isLoading ? "#F2F2F2" : "#fff")};
 		}
 	}
 	input[name="validation"] {
@@ -98,6 +102,9 @@ export const CreateHabitForm = styled.form`
 		align-items: center;
 		margin-top: 32px;
 		button {
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			font-size: 15.976px;
 			line-height: 20px;
 			&:nth-child(1) {

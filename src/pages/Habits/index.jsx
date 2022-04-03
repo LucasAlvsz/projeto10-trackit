@@ -6,9 +6,9 @@ import Menu from "../../components/Menu"
 import MyHabit from "../../components/MyHabit"
 import LoggedContext from "../../providers/LoggedContext"
 
-import { ReactComponent as CreateHabitButton } from "../../assets/imgs/plus.svg"
-import loading from "../../assets/imgs/loading.svg"
 import * as S from "./styles"
+import { ReactComponent as CreateHabitButton } from "../../assets/imgs/plus.svg"
+import ThreeDotsLoading from "../../components/Loading"
 
 export default function Habits() {
 	const {
@@ -21,8 +21,8 @@ export default function Habits() {
 		name: "",
 		days: [],
 	})
-	const [isLoading, setIsLoading] = useState(false)
-	console.log(createHabitData)
+	const [isLoading, setIsLoading] = useState(true)
+
 	useEffect(() => {
 		axios
 			.get(
@@ -36,9 +36,11 @@ export default function Habits() {
 			.then(({ data }) => {
 				console.log(data)
 				setHabits(data)
+				setTimeout(() => setIsLoading(false), 500)
 			})
 			.catch(({ response }) => {
 				console.log(response)
+				setTimeout(() => setIsLoading(false), 500)
 			})
 	}, [])
 	function createHabit(e) {
@@ -99,13 +101,15 @@ export default function Habits() {
 				})
 		}
 	}
+	console.log(isLoading)
 	return (
 		<>
-			<Header />
-			<S.Habits>
+			<Header isLoading={isLoading} />
+			<S.Habits isLoading={isLoading}>
 				<div className="createHabit">
 					<h1>Meus hábitos</h1>
 					<button
+						disabled={isLoading}
 						onClick={
 							() =>
 								setCreateHabitData({
@@ -138,7 +142,11 @@ export default function Habits() {
 								required
 								name="validation"
 								type="text"
-								value={createHabitData.days ? "value" : ""}
+								defaultValue={
+									createHabitData.days.length > 0
+										? "value"
+										: ""
+								}
 							/>
 							{days.map((day, id) => (
 								<div
@@ -178,14 +186,16 @@ export default function Habits() {
 								}>
 								Cancelar
 							</button>
-							<button type="submit">Salvar</button>
+							<button type="submit">
+								{isLoading ? <ThreeDotsLoading /> : "Salvar"}
+							</button>
 						</div>
 					</S.CreateHabitForm>
 				) : (
 					""
 				)}
 
-				{habits.length > 0 ? (
+				{habits.length > 0 && !isLoading ? (
 					habits.map(habit => (
 						<MyHabit
 							habitData={habit}
@@ -193,14 +203,17 @@ export default function Habits() {
 							key={habit.id}
 						/>
 					))
+				) : isLoading ? (
+					""
 				) : (
+					// <TrackItLoader className="loading" />
 					<h3>
 						Você não tem nenhum hábito cadastrado ainda. Adicione um
 						hábito para começar a trackear!
 					</h3>
 				)}
 			</S.Habits>
-			<Menu />
+			<Menu isLoading={isLoading} />
 		</>
 	)
 }

@@ -10,6 +10,8 @@ export const Menu = styled.footer`
 	bottom: 0;
 	left: 0;
 	background-color: #fff;
+	pointer-events: ${props => (props.isLoading ? "none" : "auto")};
+	cursor: ${props => (props.isLoading ? "default" : "pointer")};
 `
 
 export const Option = styled.p`

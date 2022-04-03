@@ -4,7 +4,7 @@ export const Header = styled.header`
 	width: 100%;
 	height: 70px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: end;
 	align-items: center;
 	position: fixed;
 	top: 0;
@@ -16,12 +16,16 @@ export const Header = styled.header`
 		width: 97px;
 		height: 49px;
 	}
+	.loading {
+		position: absolute;
+		left: 18px;
+	}
 `
 
 export const ProfilePic = styled.img`
 	width: 51px;
 	height: 51px;
 	border-radius: 50%;
-	background-image: url(${(props) => props.src});
+	background-image: url(${props => props.src});
 	background-size: cover;
 `

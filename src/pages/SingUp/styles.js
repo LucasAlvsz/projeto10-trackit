@@ -47,6 +47,9 @@ export const SingUp = styled.main`
 	button {
 		width: 303px;
 		height: 45px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		background: #52b6ff;
 		border: none;
 		border-radius: 5px;

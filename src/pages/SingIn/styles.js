@@ -42,15 +42,14 @@ export const SingIn = styled.main`
 		&.disabled {
 			background: #f2f2f2;
 		}
-
-		&:nth-child(1) {
-			color: ${props => props.color};
-		}
 	}
 
 	button {
 		width: 303px;
 		height: 45px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		background: #52b6ff;
 		border: none;
 		border-radius: 5px;

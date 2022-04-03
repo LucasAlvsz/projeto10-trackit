@@ -5,7 +5,6 @@ import dayjs from "dayjs"
 import Header from "../../components/Header"
 import Menu from "../../components/Menu"
 import TodayHabit from "../../components/TodayHabit"
-
 import LoggedContext from "../../providers/LoggedContext"
 import CheckedHabitsValue from "../../providers/CheckedHabitsValue"
 
@@ -22,6 +21,14 @@ export default function Today() {
 	const checkedHabitsValueUpdate = useContext(CheckedHabitsValue)
 	const [todayHabits, setTodayHabits] = useState([])
 	const [checkHabits, setCheckHabits] = useState(0)
+	const [isLoading, setIsLoading] = useState(true)
+	console.log(checkedHabitsValueUpdate, "today")
+
+	checkHabits > 0
+		? checkedHabitsValueUpdate.setCheckedHabitsValue(
+				(checkHabits / todayHabits.length) * 100
+		  )
+		: checkedHabitsValueUpdate.setCheckedHabitsValue(0)
 
 	useEffect(() => {
 		axios
@@ -34,14 +41,15 @@ export default function Today() {
 				}
 			)
 			.then(({ data }) => {
-				console.log(data)
 				setTodayHabits(data)
 				data.map(habit => {
 					if (habit.done) setCheckHabits(checkHabits + 1)
 				})
+				setTimeout(() => setIsLoading(false), 500)
 			})
 			.catch(({ response }) => {
 				console.log(response)
+				setTimeout(() => setIsLoading(false), 500)
 			})
 	}, [])
 
@@ -106,13 +114,9 @@ export default function Today() {
 		}
 	}
 
-	checkedHabitsValueUpdate.setCheckedHabitsValue(
-		(checkHabits / todayHabits.length) * 100
-	)
-
 	return (
 		<>
-			<Header />
+			<Header isLoading={isLoading} />
 			<S.Today>
 				<h1>{todayDate}</h1>
 				{checkHabits > 0 ? (
@@ -120,13 +124,15 @@ export default function Today() {
 						{(checkHabits / todayHabits.length) * 100}% dos hábitos
 						concluídos
 					</h3>
+				) : isLoading ? (
+					""
 				) : (
 					<h3>Nenhum hábito concluído ainda</h3>
 				)}
 
 				<div className="habitsContainer">
 					{
-						todayHabits
+						todayHabits && !isLoading
 							? todayHabits.map(habit => (
 									<TodayHabit
 										key={habit.id}
@@ -138,7 +144,7 @@ export default function Today() {
 					}
 				</div>
 			</S.Today>
-			<Menu />
+			<Menu isLoading={isLoading} />
 		</>
 	)
 }
