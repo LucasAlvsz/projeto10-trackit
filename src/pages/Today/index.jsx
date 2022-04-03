@@ -30,7 +30,6 @@ export default function Today() {
 		: checkedHabitsValueUpdate.setCheckedHabitsValue(0)
 
 	useEffect(() => {
-		console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 		axios
 			.get(
 				"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",

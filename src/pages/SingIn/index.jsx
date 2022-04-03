@@ -10,7 +10,7 @@ import "react-notifications/lib/notifications.css"
 import logo from "../../assets/imgs/logo.svg"
 import ThreeDotsLoading from "../../components/Loading"
 
-export default function SingIn({ userLogged }) {
+export default function SingIn() {
 	const loggedDataUpdate = useContext(LoggedContext)
 	const navigate = useNavigate()
 	const [isLoading, setIsLoading] = useState(false)
@@ -19,7 +19,6 @@ export default function SingIn({ userLogged }) {
 		password: "Akali",
 	})
 	if (localStorage.getItem("@trackit/userData")) {
-		userLogged(true)
 		navigate("/today")
 	}
 	const URL =
