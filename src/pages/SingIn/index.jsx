@@ -3,7 +3,7 @@ import { useState, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { NotificationContainer, NotificationManager } from "react-notifications"
 
-import LoggedContext from "../../providers/LoggedContext"
+import LoggedContext from "../../contexts/LoggedContext"
 
 import * as S from "./styles"
 import "react-notifications/lib/notifications.css"

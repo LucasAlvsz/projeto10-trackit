@@ -17,7 +17,7 @@ export const Today = styled.main`
 	h3 {
 		font-size: 17.976px;
 		line-height: 22px;
-		color: #bababa;
+		color: ${props => (props.checkHabits > 0 ? "#8FC549" : "#BABABA")};
 	}
 	.habitsContainer {
 		margin-top: 28px;

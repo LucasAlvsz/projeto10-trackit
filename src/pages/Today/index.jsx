@@ -6,8 +6,8 @@ import dayjs from "dayjs"
 import Header from "../../components/Header"
 import Menu from "../../components/Menu"
 import TodayHabit from "../../components/TodayHabit"
-import LoggedContext from "../../providers/LoggedContext"
-import CheckedHabitsValue from "../../providers/CheckedHabitsValue"
+import LoggedContext from "../../contexts/LoggedContext"
+import CheckedHabitsValue from "../../contexts/CheckedHabitsValue"
 
 import * as S from "./styles"
 
@@ -121,7 +121,7 @@ export default function Today() {
 	return (
 		<>
 			<Header isLoading={isLoading} />
-			<S.Today>
+			<S.Today checkHabits={checkHabits}>
 				<h1>{todayDate}</h1>
 				{checkHabits > 0 ? (
 					<h3>

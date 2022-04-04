@@ -1,8 +1,8 @@
 import Routes from "./routes"
 import { useState, useEffect } from "react"
 
-import CheckedHabitsValue from "./providers/CheckedHabitsValue"
-import LoggedContext from "./providers/LoggedContext"
+import CheckedHabitsValue from "./contexts/CheckedHabitsValue"
+import LoggedContext from "./contexts/LoggedContext"
 
 import "reset-css"
 import GlobalStyle from "./styles/GlobalStyle"

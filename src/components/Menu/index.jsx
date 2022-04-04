@@ -5,7 +5,7 @@ import { CircularProgressbar } from "react-circular-progressbar"
 import * as S from "./styles"
 import "react-circular-progressbar/dist/styles.css"
 
-import CheckedHabitsValue from "../../providers/CheckedHabitsValue"
+import CheckedHabitsValue from "../../contexts/CheckedHabitsValue"
 
 export default function Menu({ isLoading }) {
 	const { checkedHabitsValue } = useContext(CheckedHabitsValue)

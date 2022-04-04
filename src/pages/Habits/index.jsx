@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import Header from "../../components/Header"
 import Menu from "../../components/Menu"
 import MyHabit from "../../components/MyHabit"
-import LoggedContext from "../../providers/LoggedContext"
+import LoggedContext from "../../contexts/LoggedContext"
 
 import * as S from "./styles"
 import { ReactComponent as CreateHabitButton } from "../../assets/imgs/plus.svg"
