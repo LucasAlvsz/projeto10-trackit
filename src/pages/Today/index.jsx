@@ -18,16 +18,12 @@ export default function Today() {
 	const {
 		loggedData: { token },
 	} = useContext(LoggedContext)
+	const loggedData = useContext(LoggedContext)
+	console.log(loggedData)
 	const checkedHabitsValueUpdate = useContext(CheckedHabitsValue)
 	const [todayHabits, setTodayHabits] = useState([])
 	const [checkHabits, setCheckHabits] = useState(0)
 	const [isLoading, setIsLoading] = useState(true)
-
-	checkHabits > 0
-		? checkedHabitsValueUpdate.setCheckedHabitsValue(
-				(checkHabits / todayHabits.length) * 100
-		  )
-		: checkedHabitsValueUpdate.setCheckedHabitsValue(0)
 
 	useEffect(() => {
 		axios
@@ -44,6 +40,9 @@ export default function Today() {
 				data.map(habit => {
 					if (habit.done) setCheckHabits(checkHabits + 1)
 				})
+				checkedHabitsValueUpdate.setCheckedHabitsValue(
+					(checkHabits / todayHabits.length) * 100
+				)
 				setTimeout(() => setIsLoading(false), 500)
 			})
 			.catch(({ response }) => {
@@ -51,6 +50,10 @@ export default function Today() {
 				setTimeout(() => setIsLoading(false), 500)
 			})
 	}, [])
+
+	checkedHabitsValueUpdate.setCheckedHabitsValue(
+		(checkHabits / todayHabits.length) * 100
+	)
 
 	function checkHabit(id, done) {
 		setIsLoading(true)
@@ -77,6 +80,7 @@ export default function Today() {
 					})
 					setTodayHabits(updateHabits)
 					setCheckHabits(checkHabits + 1)
+
 					console.log("Habit checked")
 					setIsLoading(false)
 				})
@@ -108,6 +112,7 @@ export default function Today() {
 					})
 					setTodayHabits(updateHabits)
 					setCheckHabits(checkHabits - 1)
+
 					console.log("Habit unchecked")
 					setIsLoading(false)
 				})
@@ -125,8 +130,8 @@ export default function Today() {
 				<h1>{todayDate}</h1>
 				{checkHabits > 0 ? (
 					<h3>
-						{(checkHabits / todayHabits.length) * 100}% dos hábitos
-						concluídos
+						{Math.floor((checkHabits / todayHabits.length) * 100)}%
+						dos hábitos concluídos
 					</h3>
 				) : (
 					<h3>Nenhum hábito concluído ainda</h3>

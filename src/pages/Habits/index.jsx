@@ -45,7 +45,6 @@ export default function Habits() {
 	}, [])
 	function createHabit(e) {
 		e.preventDefault()
-		console.log(createHabitData)
 		if (createHabitData.days.length === 0) {
 		} else {
 			setIsLoading(true)
@@ -63,7 +62,6 @@ export default function Habits() {
 					}
 				)
 				.then(({ data }) => {
-					console.log(data)
 					setCreateHabitData({
 						status: false,
 						name: "",
@@ -79,7 +77,6 @@ export default function Habits() {
 		}
 	}
 	function deleteHabit(id) {
-		console.log(id)
 		if (window.confirm("Deseja realmente excluir?")) {
 			axios
 				.delete(
@@ -206,7 +203,6 @@ export default function Habits() {
 				) : isLoading ? (
 					""
 				) : (
-					// <TrackItLoader className="loading" />
 					<h3>
 						Você não tem nenhum hábito cadastrado ainda. Adicione um
 						hábito para começar a trackear!

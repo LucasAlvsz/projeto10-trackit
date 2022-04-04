@@ -20,6 +20,7 @@ export default function App() {
 			setLoggedData({ image, token })
 		}
 	}, [])
+
 	return (
 		<LoggedContext.Provider value={{ loggedData, setLoggedData }}>
 			<CheckedHabitsValue.Provider

@@ -19,6 +19,9 @@ export default function SingIn() {
 		password: "Akali",
 	})
 	if (localStorage.getItem("@trackit/userData")) {
+		loggedDataUpdate.setLoggedData(
+			JSON.parse(localStorage.getItem("@trackit/userData"))
+		)
 		navigate("/today")
 	}
 	const URL =

@@ -10,7 +10,7 @@ export default function Header({ isLoading }) {
 	const {
 		loggedData: { image },
 	} = useContext(LoggedContext)
-	console.log(isLoading)
+
 	return (
 		<S.Header>
 			{isLoading ? (
