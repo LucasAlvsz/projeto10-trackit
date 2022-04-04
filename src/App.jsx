@@ -12,13 +12,11 @@ export default function App() {
 	const [checkedHabitsValue, setCheckedHabitsValue] = useState(0)
 	useEffect(() => {
 		if (localStorage.getItem("@trackit/userData")) {
-			console.log("tem dados")
 			let userData = localStorage.getItem("@trackit/userData")
 			userData = JSON.parse(userData)
 			const { image, token } = userData
-			console.log(token)
 			setLoggedData({ image, token })
-		}
+		} else setLoggedData("userOff")
 	}, [])
 
 	return (

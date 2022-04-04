@@ -27,7 +27,6 @@ export default function SingUp() {
 			.post(URL, userData)
 			.then(response => {
 				setIsLoading(false)
-				console.log(response)
 				navigate("/")
 			})
 			.catch(({ response }) => {

@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState, useEffect, useContext } from "react"
+import { useNavigate } from "react-router-dom"
 import dayjs from "dayjs"
 
 import Header from "../../components/Header"
@@ -15,16 +16,14 @@ export default function Today() {
 	dayjs.locale("pt-br")
 	let todayDate = dayjs().format("dddd, DD/MM").replace("-feira", "")
 	todayDate = todayDate[0].toUpperCase() + todayDate.slice(1)
-	const {
-		loggedData: { token },
-	} = useContext(LoggedContext)
-	const loggedData = useContext(LoggedContext)
-	console.log(loggedData)
+	const navigate = useNavigate()
+	const { loggedData } = useContext(LoggedContext)
+	if (loggedData === "userOff") navigate("/")
+	const { token } = loggedData
 	const checkedHabitsValueUpdate = useContext(CheckedHabitsValue)
 	const [todayHabits, setTodayHabits] = useState([])
 	const [checkHabits, setCheckHabits] = useState(0)
 	const [isLoading, setIsLoading] = useState(true)
-
 	useEffect(() => {
 		axios
 			.get(
@@ -40,20 +39,19 @@ export default function Today() {
 				data.map(habit => {
 					if (habit.done) setCheckHabits(checkHabits + 1)
 				})
-				checkedHabitsValueUpdate.setCheckedHabitsValue(
-					(checkHabits / todayHabits.length) * 100
-				)
 				setTimeout(() => setIsLoading(false), 500)
 			})
 			.catch(({ response }) => {
 				console.log(response)
 				setTimeout(() => setIsLoading(false), 500)
 			})
-	}, [])
+	}, [loggedData])
 
-	checkedHabitsValueUpdate.setCheckedHabitsValue(
-		(checkHabits / todayHabits.length) * 100
-	)
+	useEffect(() => {
+		checkedHabitsValueUpdate.setCheckedHabitsValue(
+			(checkHabits / todayHabits.length) * 100
+		)
+	}, [checkHabits, todayHabits])
 
 	function checkHabit(id, done) {
 		setIsLoading(true)
@@ -80,8 +78,6 @@ export default function Today() {
 					})
 					setTodayHabits(updateHabits)
 					setCheckHabits(checkHabits + 1)
-
-					console.log("Habit checked")
 					setIsLoading(false)
 				})
 				.catch(({ response }) => {
@@ -112,8 +108,6 @@ export default function Today() {
 					})
 					setTodayHabits(updateHabits)
 					setCheckHabits(checkHabits - 1)
-
-					console.log("Habit unchecked")
 					setIsLoading(false)
 				})
 				.catch(({ response }) => {
@@ -122,7 +116,6 @@ export default function Today() {
 				})
 		}
 	}
-
 	return (
 		<>
 			<Header isLoading={isLoading} />

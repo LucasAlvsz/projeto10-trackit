@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState, useEffect, useContext } from "react"
+import { useNavigate } from "react-router-dom"
 
 import Header from "../../components/Header"
 import Menu from "../../components/Menu"
@@ -11,9 +12,10 @@ import { ReactComponent as CreateHabitButton } from "../../assets/imgs/plus.svg"
 import ThreeDotsLoading from "../../components/Loading"
 
 export default function Habits() {
-	const {
-		loggedData: { token },
-	} = useContext(LoggedContext)
+	const navigate = useNavigate()
+	const { loggedData } = useContext(LoggedContext)
+	if (loggedData === "userOff") navigate("/")
+	const { token } = loggedData
 	const days = ["D", "S", "T", "Q", "Q", "S", "S"]
 	const [habits, setHabits] = useState([])
 	const [createHabitData, setCreateHabitData] = useState({
@@ -34,7 +36,6 @@ export default function Habits() {
 				}
 			)
 			.then(({ data }) => {
-				console.log(data)
 				setHabits(data)
 				setTimeout(() => setIsLoading(false), 500)
 			})
@@ -42,7 +43,7 @@ export default function Habits() {
 				console.log(response)
 				setTimeout(() => setIsLoading(false), 500)
 			})
-	}, [])
+	}, [loggedData])
 	function createHabit(e) {
 		e.preventDefault()
 		if (createHabitData.days.length === 0) {
@@ -88,7 +89,6 @@ export default function Habits() {
 					}
 				)
 				.then(({ data }) => {
-					console.log(data)
 					setHabits(habits.filter(habit => habit.id !== id))
 					setIsLoading(false)
 				})
@@ -98,7 +98,6 @@ export default function Habits() {
 				})
 		}
 	}
-	console.log(isLoading)
 	return (
 		<>
 			<Header isLoading={isLoading} />
@@ -134,7 +133,6 @@ export default function Habits() {
 							}}
 						/>
 						<div className="daysWeek">
-							{console.log(createHabitData.days)}
 							<input
 								required
 								name="validation"

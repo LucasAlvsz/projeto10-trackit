@@ -36,7 +36,6 @@ export default function SingIn() {
 				setIsLoading(false)
 				loggedDataUpdate.setLoggedData(data)
 				localStorage.setItem("@trackit/userData", JSON.stringify(data))
-				console.log("logado e setado")
 				navigate("/today")
 			})
 			.catch(({ response }) => {
