@@ -36,9 +36,14 @@ export default function Today() {
 			)
 			.then(({ data }) => {
 				setTodayHabits(data)
+				let count = 0
 				data.map(habit => {
-					if (habit.done) setCheckHabits(checkHabits + 1)
+					if (habit.done) {
+						count++
+						console.log("Contador = ", count)
+					}
 				})
+				setCheckHabits(count)
 				setTimeout(() => setIsLoading(false), 500)
 			})
 			.catch(({ response }) => {
@@ -48,10 +53,13 @@ export default function Today() {
 	}, [loggedData])
 
 	useEffect(() => {
+		console.log("entrei")
 		checkedHabitsValueUpdate.setCheckedHabitsValue(
-			(checkHabits / todayHabits.length) * 100
+			checkHabits / todayHabits.length
 		)
-	}, [checkHabits, todayHabits])
+		console.log(checkHabits, "CheckHabits")
+		console.log(todayHabits.length, "TodayHabits")
+	}, [checkHabits, todayHabits.length])
 
 	function checkHabit(id, done) {
 		setIsLoading(true)

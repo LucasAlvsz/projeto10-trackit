@@ -15,8 +15,8 @@ export default function SingIn() {
 	const navigate = useNavigate()
 	const [isLoading, setIsLoading] = useState(false)
 	const [userData, setUserData] = useState({
-		email: "",
-		password: "",
+		email: "Akali@gmail.com",
+		password: "Akali",
 	})
 	if (localStorage.getItem("@trackit/userData")) {
 		loggedDataUpdate.setLoggedData(
